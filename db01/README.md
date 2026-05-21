@@ -272,7 +272,7 @@ WHERE o.product = '노트북';
 - 샘플데이터 다운로드/설치 : https://dev.mysql.com/doc/index-other.html <br>
   <img width="1550" height="470" alt="image" src="https://github.com/user-attachments/assets/5127cf21-3452-4ad5-8ebc-cf72db8544ce" />
   <img width="609" height="229" alt="image" src="https://github.com/user-attachments/assets/197fa586-15b9-400e-be1f-88b05b6cb31e" />
-<img width="609" height="229" alt="image" src="https://github.com/user-attachments/assets/ee9cf93a-16d0-4ded-871f-7ba88046de1c" />
+
 
 
 <br><br>
