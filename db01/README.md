@@ -258,7 +258,7 @@ WHERE o.product = '노트북';
 <img width="1075" height="613" alt="image" src="https://github.com/user-attachments/assets/fe3bfe0f-421e-4cac-8866-fd34f4570160" />
 <img width="974" height="552" alt="image" src="https://github.com/user-attachments/assets/05afb239-0d4c-4261-8c13-9eaa22b1367f" />
 <img width="1074" height="613" alt="image" src="https://github.com/user-attachments/assets/7b470713-cc29-427a-9968-27f55189f60b" />
-<img width="1074" height="613" alt="image" src="https://github.com/user-attachments/assets/ccaf192f-f030-4c4f-9fce-12917421d7b8" />
+
 <img width="975" height="553" alt="image" src="https://github.com/user-attachments/assets/84a06e24-4be5-448c-bf3b-16d5a213f158" />
 <img width="980" height="556" alt="image" src="https://github.com/user-attachments/assets/e1c72cb2-2729-44ba-968b-55e40468bc7d" />
 <img width="1074" height="611" alt="image" src="https://github.com/user-attachments/assets/cc8f80e7-770a-49ac-bd4f-2e50b0714932" />
