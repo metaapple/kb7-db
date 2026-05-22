@@ -12,28 +12,57 @@
 
 ## 🗂️ 데이터베이스 구조
 
-### 테이블 설계도
+### ERD — userTBL ↔ buyTBL (1:1)
 
+```mermaid
+erDiagram
+    userTBL ||--|| buyTBL : "1:1"
+    userTBL {
+        varchar userName PK "NOT NULL"
+        int birthYear
+        varchar addr
+        varchar mobile "NOT NULL"
+    }
+    buyTBL {
+        varchar userName PK_FK "NOT NULL"
+        varchar prodName
+        int price
+        int amount
+    }
 ```
-┌─────────────────────────┐         ┌─────────────────────────┐
-│       userTBL           │   1:1   │       buyTBL            │
-├─────────────────────────┤◄───────►├─────────────────────────┤
-│ userName (PK)           │         │ userName (PK, FK)       │
-│ birthYear               │         │ prodName                │
-│ addr                    │         │ price                   │
-│ mobile                  │         │ amount                  │
-└─────────────────────────┘         └─────────────────────────┘
 
+### ERD — memberTBL · productTBL (독립)
 
-┌─────────────────────────┐         ┌─────────────────────────┐
-│      memberTBL          │         │     productTBL        │
-├─────────────────────────┤         ├─────────────────────────┤
-│ memberID (PK)           │         │ productName (PK)        │
-│ memberName              │         │ cost                    │
-│ memberAddress           │         │ makeDate                │
-└─────────────────────────┘         │ company                 │
-                                    │ amount                  │
-                                    └─────────────────────────┘
+```mermaid
+erDiagram
+    memberTBL {
+        varchar memberID PK "NOT NULL"
+        varchar memberName
+        varchar memberAddress
+    }
+    productTBL {
+        varchar productName PK "NOT NULL"
+        int cost
+        varchar makeDate
+        varchar company
+        int amount
+    }
+```
+
+### DB01 vs DB02 관계 비교
+
+```mermaid
+flowchart LR
+    subgraph DB01["DB01 — 1:N"]
+        M1[memberTBL]
+        O1[orderTBL]
+        M1 -->|"memberID FK"| O1
+    end
+    subgraph DB02["DB02 — 1:1"]
+        U[userTBL]
+        B[buyTBL]
+        U <-->|"userName PK+FK"| B
+    end
 ```
 
 ---
@@ -115,6 +144,15 @@ FROM userTBL u
 JOIN buyTBL b ON u.userName = b.userName;
 ```
 
+### 1:1 JOIN 흐름
+
+```mermaid
+flowchart TD
+    A[userTBL] --> B{JOIN ON userName}
+    C[buyTBL] --> B
+    B --> D[고객 + 구매 1행 결과]
+```
+
 ### 조건부 조회
 ```sql
 -- 특정 회원 조회
@@ -137,6 +175,15 @@ IGNORE 1 ROWS
 ```
 
 > CSV 경로·`LOCAL INFILE` 허용 여부는 환경에 따라 다릅니다. MySQL Workbench **Table Data Import Wizard** 로 가져와도 됩니다.
+
+### CSV 가져오기 흐름
+
+```mermaid
+flowchart LR
+    CSV[membertbl_export.csv] -->|세미콜론 구분| WIZ[Import Wizard]
+    WIZ --> TBL[memberTBL]
+    TBL --> Q[SELECT * FROM memberTBL]
+```
 
 ---
 
@@ -162,9 +209,33 @@ IGNORE 1 ROWS
 3. `membertbl_export.csv` 를 이용해 `memberTBL` 에 데이터를 적재합니다.
 4. 위 **주요 SQL 쿼리** 를 실행해 결과를 확인합니다.
 
-<hr>
+### 실행 흐름
 
-<img src="images/workflow-day2.svg" width="800" alt="DB02 실행 흐름 요약" />
+```mermaid
+flowchart TD
+    S1[CREATE DATABASE day2db] --> S2[USE day2db]
+    S2 --> S3[CREATE userTBL / buyTBL]
+    S3 --> S4[ALTER PK / FK on userTBL·buyTBL]
+    S4 --> S5[CREATE memberTBL / productTBL]
+    S5 --> S6[ALTER PK on memberTBL·productTBL]
+    S6 --> S7[CSV Import → memberTBL]
+    S7 --> S8[SELECT / JOIN 확인]
+```
+
+### day2.sql — ALTER 제약조건 순서
+
+```mermaid
+sequenceDiagram
+    participant SQL as day2.sql
+    participant U as userTBL
+    participant B as buyTBL
+    SQL->>U: CREATE TABLE
+    SQL->>B: CREATE TABLE
+    SQL->>U: ADD PK_USERTBL
+    SQL->>B: ADD PK_BUYTBL
+    SQL->>B: ADD FK_userTBL_TO_buyTBL_1
+    Note over B,U: buyTBL.userName → userTBL.userName
+```
 
 ---
 
@@ -174,27 +245,20 @@ IGNORE 1 ROWS
 |------|------|
 | `day2.sql` | `userTBL`, `buyTBL`, `memberTBL`, `productTBL` DDL 및 제약조건 |
 | `membertbl_export.csv` | `memberTBL` 회원 샘플 데이터 (세미콜론 구분) |
-| `images/*.svg` | ERD, 실행 흐름, CSV 가져오기, DB01/DB02 비교 다이어그램 |
 
 ---
 
-## 🖼️ 참고 이미지
+## 📐 다이어그램 요약 (Mermaid)
 
-### 실행 흐름
-<img src="images/workflow-day2.svg" width="800" alt="DB02 실행 흐름" />
-
-### ERD (1:1 · 마스터 테이블)
-<img src="images/erd-1to1.svg" width="720" alt="userTBL buyTBL 1:1 ERD" />
-<br>
-<img src="images/erd-member-product.svg" width="720" alt="memberTBL productTBL ERD" />
-
-### DB01 vs DB02 관계 비교
-<img src="images/relation-compare.svg" width="760" alt="DB01 1:N vs DB02 1:1" />
-
-### CSV 가져오기
-<img src="images/csv-import.svg" width="760" alt="membertbl_export.csv 가져오기" />
-
-<br><br>
+| 다이어그램 | 유형 | 설명 |
+|-----------|------|------|
+| userTBL ↔ buyTBL | `erDiagram` | 1:1 ERD |
+| memberTBL · productTBL | `erDiagram` | 독립 마스터 테이블 |
+| DB01 vs DB02 | `flowchart` | 1:N vs 1:1 비교 |
+| 1:1 JOIN | `flowchart` | JOIN 조회 흐름 |
+| CSV Import | `flowchart` | CSV → memberTBL |
+| 실행 흐름 | `flowchart` | day2 학습 순서 |
+| ALTER 순서 | `sequenceDiagram` | PK/FK 추가 단계 |
 
 ### day2.sql 전체 스크립트
 
@@ -255,23 +319,7 @@ ALTER TABLE `productTBL` ADD CONSTRAINT `PK_PRODUCTTBL` PRIMARY KEY (
 
 ### MySQL Workbench · ERD (공통)
 
-db01 강의 자료와 동일한 Workbench·ERD·환경 설정 스크린샷입니다.
 
-<br>
-- ERD<br>
-<img width="400" height="350" alt="ERD 예시" src="https://github.com/user-attachments/assets/51c84a12-674b-4b80-935f-7e00a4433900" />
-<img width="400" height="350" alt="ERD 예시" src="https://github.com/user-attachments/assets/c24a3eca-9cf3-4ddd-90dd-5946c8b2d24d" />
-<img width="400" height="350" alt="ERD 예시" src="https://github.com/user-attachments/assets/e25868e9-c661-47aa-9962-f17695cc39fb" />
-
-<br><br>
-- 샘플데이터 다운로드/설치 : https://dev.mysql.com/doc/index-other.html<br>
-<img width="1550" height="470" alt="MySQL 샘플 DB" src="https://github.com/user-attachments/assets/5127cf21-3452-4ad5-8ebc-cf72db8544ce" />
-<img width="609" height="229" alt="샘플 DB 설치" src="https://github.com/user-attachments/assets/197fa586-15b9-400e-be1f-88b05b6cb31e" />
-
-<br><br>
-- delete/update 해제 (Safe Updates)<br>
-<img width="400" height="300" alt="Safe Updates 해제" src="https://github.com/user-attachments/assets/4f8a19b3-a759-462f-ba12-64ad77b42ea7" />
-<img width="400" height="300" alt="Safe Updates 해제" src="https://github.com/user-attachments/assets/c8d14c77-ceb4-49e6-9920-6ad77c509ef5" />
 
 ---
 
@@ -279,4 +327,3 @@ db01 강의 자료와 동일한 Workbench·ERD·환경 설정 스크린샷입니
 
 - MySQL 설치·Workbench·CLI 접속 등 공통 환경 설정은 [db01/README.md](../db01/README.md) 를 참고하세요.
 - DB01에서는 **1:N** (`memberTBL` ↔ `orderTBL`), DB02에서는 **1:1** (`userTBL` ↔ `buyTBL`) 관계를 다룹니다.
-- DB02 전용 다이어그램은 `db02/images/` 폴더에 있습니다.
