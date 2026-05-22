@@ -16,35 +16,37 @@
 
 ```mermaid
 erDiagram
-    userTBL ||--|| buyTBL : "1:1"
+    userTBL ||--|| buyTBL : "1대1"
     userTBL {
-        varchar userName PK "NOT NULL"
+        string userName PK
         int birthYear
-        varchar addr
-        varchar mobile "NOT NULL"
+        string addr
+        string mobile
     }
     buyTBL {
-        varchar userName PK_FK "NOT NULL"
-        varchar prodName
+        string userName PK
+        string prodName
         int price
         int amount
     }
 ```
+
+> `buyTBL.userName` 은 PK이면서 `userTBL.userName` 을 참조하는 FK입니다. (`FK_userTBL_TO_buyTBL_1`)
 
 ### ERD — memberTBL · productTBL (독립)
 
 ```mermaid
 erDiagram
     memberTBL {
-        varchar memberID PK "NOT NULL"
-        varchar memberName
-        varchar memberAddress
+        string memberID PK
+        string memberName
+        string memberAddress
     }
     productTBL {
-        varchar productName PK "NOT NULL"
+        string productName PK
         int cost
-        varchar makeDate
-        varchar company
+        string makeDate
+        string company
         int amount
     }
 ```
@@ -53,15 +55,15 @@ erDiagram
 
 ```mermaid
 flowchart LR
-    subgraph DB01["DB01 — 1:N"]
+    subgraph db01["DB01 1:N"]
         M1[memberTBL]
         O1[orderTBL]
-        M1 -->|"memberID FK"| O1
+        M1 -->|memberID FK| O1
     end
-    subgraph DB02["DB02 — 1:1"]
+    subgraph db02["DB02 1:1"]
         U[userTBL]
         B[buyTBL]
-        U <-->|"userName PK+FK"| B
+        U <-->|userName| B
     end
 ```
 
@@ -150,7 +152,7 @@ JOIN buyTBL b ON u.userName = b.userName;
 flowchart TD
     A[userTBL] --> B{JOIN ON userName}
     C[buyTBL] --> B
-    B --> D[고객 + 구매 1행 결과]
+    B --> D[결과 1행]
 ```
 
 ### 조건부 조회
@@ -180,9 +182,9 @@ IGNORE 1 ROWS
 
 ```mermaid
 flowchart LR
-    CSV[membertbl_export.csv] -->|세미콜론 구분| WIZ[Import Wizard]
+    CSV[membertbl_export.csv] -->|semicolon| WIZ[Import Wizard]
     WIZ --> TBL[memberTBL]
-    TBL --> Q[SELECT * FROM memberTBL]
+    TBL --> Q[SELECT 확인]
 ```
 
 ---
@@ -214,12 +216,12 @@ flowchart LR
 ```mermaid
 flowchart TD
     S1[CREATE DATABASE day2db] --> S2[USE day2db]
-    S2 --> S3[CREATE userTBL / buyTBL]
-    S3 --> S4[ALTER PK / FK on userTBL·buyTBL]
-    S4 --> S5[CREATE memberTBL / productTBL]
-    S5 --> S6[ALTER PK on memberTBL·productTBL]
-    S6 --> S7[CSV Import → memberTBL]
-    S7 --> S8[SELECT / JOIN 확인]
+    S2 --> S3[CREATE userTBL buyTBL]
+    S3 --> S4[ALTER PK FK]
+    S4 --> S5[CREATE memberTBL productTBL]
+    S5 --> S6[ALTER PK]
+    S6 --> S7[CSV Import memberTBL]
+    S7 --> S8[SELECT JOIN]
 ```
 
 ### day2.sql — ALTER 제약조건 순서
@@ -233,8 +235,8 @@ sequenceDiagram
     SQL->>B: CREATE TABLE
     SQL->>U: ADD PK_USERTBL
     SQL->>B: ADD PK_BUYTBL
-    SQL->>B: ADD FK_userTBL_TO_buyTBL_1
-    Note over B,U: buyTBL.userName → userTBL.userName
+    SQL->>B: ADD FK to userTBL
+    Note over B,U: buyTBL.userName references userTBL
 ```
 
 ---
