@@ -1,0 +1,22 @@
+[
+  {
+    "memberID": "Kim",
+    "memberName": "김민수",
+    "memberAddress": "서울 강남구 역삼동"
+  },
+  {
+    "memberID": "Park",
+    "memberName": "박서연",
+    "memberAddress": "부산 해운대구 우동"
+  },
+  {
+    "memberID": "Choi",
+    "memberName": "최지훈",
+    "memberAddress": "대구 수성구 범어동"
+  },
+  {
+    "memberID": "Lee2",
+    "memberName": "이하늘",
+    "memberAddress": "광주 북구 용봉동"
+  }
+]

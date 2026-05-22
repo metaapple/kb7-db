@@ -1,0 +1,23 @@
+[
+  {
+    "productName": "TV",
+    "cost": 30,
+    "makeDate": "2024-01-15",
+    "company": "Sony",
+    "amount": 11
+  },
+  {
+    "productName": "노트북",
+    "cost": 15,
+    "makeDate": "2023-11-20",
+    "company": "Apple",
+    "amount": 7
+  },
+  {
+    "productName": "에어컨",
+    "cost": 25,
+    "makeDate": "2022-07-05",
+    "company": "Air",
+    "amount": 4
+  }
+]
