@@ -337,7 +337,7 @@ ALTER TABLE `productTBL` ADD CONSTRAINT `PK_PRODUCTTBL` PRIMARY KEY (
 - 데이터만 삭제(전체 row삭제, 속도가 매우 빠름. 조건 줄 수 없음)<br>
 - truncate(자르다라는 의미)<br>
 <img width="788" height="730" alt="image" src="https://github.com/user-attachments/assets/0612339c-9be2-48af-97dd-514921e3784d" />
-- 테이블+삭제 삭제<br>
+- 테이블+데이터 삭제<br>
 <img width="726" height="734" alt="image" src="https://github.com/user-attachments/assets/d3176020-7f6f-4965-9ad0-c3bfb8f12385" />
 
 <hr>
