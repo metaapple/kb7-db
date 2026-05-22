@@ -325,7 +325,48 @@ ALTER TABLE `productTBL` ADD CONSTRAINT `PK_PRODUCTTBL` PRIMARY KEY (
 
 ---
 
-## 🔗 참고
+<br>
+<img width="2454" height="1363" alt="image" src="https://github.com/user-attachments/assets/663c7dd4-f2d7-495f-9b02-a10daa0bcaa3" />
+<img width="2454" height="1363" alt="image" src="https://github.com/user-attachments/assets/32ec5ffe-ee1a-4772-838f-6112e79eb41e" />
+<img width="2301" height="1305" alt="image" src="https://github.com/user-attachments/assets/e11186ce-1903-43cc-97cc-b6aec576bc36" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/4b5704af-424c-4eaf-91ef-72161f0d3070" />
+<img width="1672" height="941" alt="image" src="https://github.com/user-attachments/assets/d9b6b650-e880-4ec6-a351-52eb1569b95c" />
 
-- MySQL 설치·Workbench·CLI 접속 등 공통 환경 설정은 [db01/README.md](../db01/README.md) 를 참고하세요.
-- DB01에서는 **1:N** (`memberTBL` ↔ `orderTBL`), DB02에서는 **1:1** (`userTBL` ↔ `buyTBL`) 관계를 다룹니다.
+<br>
+- 테이블+데이터 삭제 vs. 데이터만 삭제 <br>
+- 데이터만 삭제(전체 row삭제, 속도가 매우 빠름. 조건 줄 수 없음)<br>
+- truncate(자르다라는 의미)<br>
+<img width="788" height="730" alt="image" src="https://github.com/user-attachments/assets/0612339c-9be2-48af-97dd-514921e3784d" />
+- 테이블+삭제 삭제<br>
+<img width="726" height="734" alt="image" src="https://github.com/user-attachments/assets/d3176020-7f6f-4965-9ad0-c3bfb8f12385" />
+
+<hr>
+- https://www.erdcloud.com/ --> SQL문 자동생성(table + 제약조건)<br>
+- import(sql --> erd)<br>
+- export(erd --> sql)<br>
+- 외래키 설정은 외래키가 되는 항목(컬럼)을 새로운 테이블로 drag/drop<br>
+
+
+<img width="456" height="143" alt="image" src="https://github.com/user-attachments/assets/0fcb4b81-6a47-4117-9130-990108fe5e6b" />
+<img width="1880" height="1759" alt="image" src="https://github.com/user-attachments/assets/97e1fe5a-ffeb-43cd-bd3f-75f9b47cc03d" />
+<img width="2377" height="1757" alt="image" src="https://github.com/user-attachments/assets/3a1334e0-8418-44ae-a86d-1415d8784012" />
+<img width="1626" height="967" alt="image" src="https://github.com/user-attachments/assets/3a220129-5bc6-45d7-9aa4-14bc5152234d" />
+
+<br>
+- csv/json파일로 테이블에 데이터 넣기(import), 밖으로 내보내기(export)<br>
+- db명 : mydb<br>
+- memberTBL/productTBL<br>
+- csv/json<br>
+<br>
+<img width="666" height="917" alt="image" src="https://github.com/user-attachments/assets/7dd9332e-6f34-42ff-8777-f270344b336b" />
+<img width="1852" height="854" alt="image" src="https://github.com/user-attachments/assets/8995dccb-e6e5-405f-bd2b-3d80c58af7dc" />
+<img width="1834" height="1051" alt="image" src="https://github.com/user-attachments/assets/d5fb2c03-beaf-4e3f-a64c-f2cf1b028c0b" />
+<img width="766" height="733" alt="image" src="https://github.com/user-attachments/assets/94269599-4a2c-437c-b47a-fc85bf96d406" />
+<img width="1575" height="1194" alt="image" src="https://github.com/user-attachments/assets/0fb1db7f-0b9d-45ff-bacf-16131d58d194" />
+<br>
+
+
+
+
+
+
