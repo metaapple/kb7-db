@@ -262,7 +262,6 @@ flowchart TD
 <br><br>
 <img width="1672" height="941" alt="image" src="https://github.com/user-attachments/assets/f89e514b-2541-4c15-97ea-df3ffaf04e85" />
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/18d43df0-4745-488f-82ea-6a18a21ae06d" />
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/553d0478-56f1-41d7-978d-db4c57b54588" />
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/484861cb-f8d1-4ada-81f9-419414810faf" />
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/447adbf3-071e-463d-bb96-c0c906e3ecbb" />
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/50833647-c74d-4fc3-9879-5f1d79a327b8" />
