@@ -260,23 +260,12 @@ flowchart TD
 | 실행 흐름 | `flowchart` | day3 학습 순서 |
 
 <br><br>
+<img width="1672" height="941" alt="image" src="https://github.com/user-attachments/assets/f89e514b-2541-4c15-97ea-df3ffaf04e85" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/18d43df0-4745-488f-82ea-6a18a21ae06d" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/553d0478-56f1-41d7-978d-db4c57b54588" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/484861cb-f8d1-4ada-81f9-419414810faf" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/447adbf3-071e-463d-bb96-c0c906e3ecbb" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/50833647-c74d-4fc3-9879-5f1d79a327b8" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/ffa48ffe-13b2-4a5e-b993-ed7d85647afe" />
 
-### MySQL Workbench · 쿼리 실행 (참고 이미지)
-
-<img width="1024" height="1536" alt="Workbench SQL 편집" src="https://github.com/user-attachments/assets/9ed390f8-77e5-4184-9731-19789776757b" />
-
-**SELECT 결과 확인 예시**
-
-<img width="1075" height="613" alt="SELECT 조회 결과" src="https://github.com/user-attachments/assets/fe3bfe0f-421e-4cac-8866-fd34f4570160" />
-<img width="974" height="552" alt="WHERE 조건 조회" src="https://github.com/user-attachments/assets/05afb239-0d4c-4261-8c13-9eaa22b1367f" />
-
-**GROUP BY · 집계 결과 스타일**
-
-<img width="1074" height="611" alt="집계 쿼리 결과" src="https://github.com/user-attachments/assets/cc8f80e7-770a-49ac-bd4f-2e50b0714932" />
-
-**서브쿼리 — 부분 실행 후 메인 쿼리**
-
-<img width="1075" height="612" alt="서브쿼리 실행" src="https://github.com/user-attachments/assets/f67247cd-a2d9-4081-8dad-b8fc056b71f1" />
-
----
 
