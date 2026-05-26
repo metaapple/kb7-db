@@ -2,37 +2,50 @@
 
 ## 📋 프로젝트 개요
 
-이 프로젝트는 기본 SQL 문법을 학습하기 위한 쇼핑몰 데이터베이스입니다.
-회원 정보와 주문 정보를 관리하는 **1:N 관계**의 데이터베이스 구조를 학습합니다.
+이 프로젝트는 **기본 SQL(DDL·DML)** 과 **1:N 관계(PK/FK)** 를 중심으로 SQL을 학습하기 위한 자료입니다.
+
+- `shopdb` : 쇼핑몰 예제 데이터베이스
+- `memberTBL` / `orderTBL` : 회원 1명이 **여러 주문**을 가질 수 있는 **1:N** 구조
+- `day1.sql` : DB 생성 → 테이블 생성 → INSERT → SELECT·JOIN 실습
 
 ---
 
 ## 🗂️ 데이터베이스 구조
 
-### 데이터베이스명
-- **shopdb** - 쇼핑몰 데이터베이스
+### ERD — memberTBL ↔ orderTBL (1:N)
 
-### 테이블 설계도
-
+```mermaid
+erDiagram
+    memberTBL ||--o{ orderTBL : "1대N"
+    memberTBL {
+        string memberID PK
+        string memberName
+        string memberAddress
+    }
+    orderTBL {
+        int orderID PK
+        string memberID FK
+        string product
+        int quantity
+    }
 ```
-┌─────────────────────┐
-│    memberTBL        │
-├─────────────────────┤
-│ memberID (PK)       │
-│ memberName          │
-│ memberAddress       │
-└─────────────────────┘
-        ▲
-        │ 1:N
-        │
-┌─────────────────────┐
-│    orderTBL         │
-├─────────────────────┤
-│ orderID (PK)        │
-│ memberID (FK)       │
-│ product             │
-│ quantity            │
-└─────────────────────┘
+
+> `orderTBL.memberID` 가 `memberTBL.memberID` 를 참조합니다. (`fk_order_member`)
+
+### DB01 vs DB02 관계 비교
+
+```mermaid
+flowchart LR
+    subgraph db01["DB01 1:N"]
+        M1[memberTBL]
+        O1[orderTBL]
+        M1 -->|memberID FK| O1
+    end
+    subgraph db02["DB02 1:1"]
+        U[userTBL]
+        B[buyTBL]
+        U <-->|userName| B
+    end
 ```
 
 ---
@@ -45,7 +58,7 @@
 |--------|-----------|--------|------|
 | memberID | VARCHAR(20) | PRIMARY KEY | 회원 고유 ID |
 | memberName | VARCHAR(50) | NOT NULL | 회원 이름 |
-| memberAddress | VARCHAR(100) | - | 회원 주소 |
+| memberAddress | VARCHAR(100) | NULL | 회원 주소 |
 
 **샘플 데이터:**
 
@@ -63,7 +76,7 @@
 | 컬럼명 | 데이터타입 | 제약조건 | 설명 |
 |--------|-----------|--------|------|
 | orderID | INT | PRIMARY KEY | 주문 고유 ID |
-| memberID | VARCHAR(20) | FOREIGN KEY | 회원 고유 ID (memberTBL 참조) |
+| memberID | VARCHAR(20) | FOREIGN KEY | 회원 ID (`memberTBL` 참조) |
 | product | VARCHAR(50) | NOT NULL | 주문 상품명 |
 | quantity | INT | NOT NULL | 주문 수량 |
 
@@ -76,6 +89,8 @@
 | 1003 | user01 | 마우스 | 2 |
 | 1004 | user03 | 모니터 | 1 |
 
+> 한 회원(`user01`)이 주문을 **여러 건** 가질 수 있어 1:N 관계입니다.
+
 ---
 
 ## 🔍 주요 SQL 쿼리
@@ -87,6 +102,15 @@ SELECT * FROM memberTBL;
 
 -- 전체 주문 조회
 SELECT * FROM orderTBL;
+```
+
+### 1:N JOIN 흐름
+
+```mermaid
+flowchart TD
+    A[memberTBL] --> B{JOIN ON memberID}
+    C[orderTBL] --> B
+    B --> D[회원별 주문 N행]
 ```
 
 ### 조건부 조회
@@ -106,7 +130,7 @@ FROM memberTBL m
 JOIN orderTBL o ON m.memberID = o.memberID;
 ```
 
-**결과:**
+**결과 예시:**
 
 | 회원명 | 상품명 | 수량 |
 |--------|--------|------|
@@ -126,50 +150,86 @@ JOIN orderTBL o ON m.memberID = o.memberID
 WHERE o.product = '노트북';
 ```
 
-**결과:**
-
-| 회원명 | 상품명 |
-|--------|--------|
-| 김철수 | 노트북 |
-
 ---
 
 ## 📝 학습 목표
 
-✅ DDL (CREATE, DROP)  
-✅ DML (INSERT, SELECT)  
-✅ 데이터 타입 및 제약조건  
-✅ PRIMARY KEY / FOREIGN KEY  
-✅ JOIN을 이용한 관계 조회  
-✅ WHERE 조건절을 이용한 필터링  
+✅ `CREATE DATABASE` / `USE` 로 DB 선택  
+✅ `CREATE TABLE` 과 PRIMARY KEY / FOREIGN KEY  
+✅ `INSERT` 로 샘플 데이터 적재  
+✅ `SELECT` · `WHERE` 기본 조회  
+✅ `JOIN` 으로 1:N 관계 조회  
+✅ `WHERE` 와 JOIN 조합 필터링  
 
 ---
 
 ## 🚀 실행 방법
 
-1. `day1.sql` 파일의 SQL 문을 순서대로 실행합니다.
-2. shopdb 데이터베이스가 생성되고 테이블과 데이터가 로드됩니다.
-3. SELECT 쿼리를 실행하여 데이터를 조회합니다.
+1. MySQL Workbench 또는 CLI에서 `day1.sql` 을 **위에서부터 순서대로** 실행합니다.
+2. `shopdb` 가 생성되고 `memberTBL` · `orderTBL` 에 데이터가 들어갑니다.
+3. 위 **주요 SQL 쿼리** 를 실행해 결과를 확인합니다.
 
-<hr>
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/3f0a9100-09a4-4bde-bd5a-2e5638c60b45" />
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/2c449aa7-4482-4b90-89c9-36f97e7cb737" />
+> 실행 전 Workbench 왼쪽 스키마에서 DB가 선택되어 있는지 확인하세요. 선택된 DB가 없으면 쿼리가 실패할 수 있습니다.
 
+### 실행 흐름
+
+```mermaid
+flowchart TD
+    S1[DROP/CREATE shopdb] --> S2[USE shopdb]
+    S2 --> S3[CREATE memberTBL]
+    S3 --> S4[CREATE orderTBL + FK]
+    S4 --> S5[INSERT 회원·주문]
+    S5 --> S6[SELECT 단일 테이블]
+    S6 --> S7[SELECT JOIN]
 ```
 
--- 1. DB 생성
+### day1.sql — DDL → DML 순서
+
+```mermaid
+sequenceDiagram
+    participant SQL as day1.sql
+    participant M as memberTBL
+    participant O as orderTBL
+    SQL->>M: CREATE + INSERT
+    SQL->>O: CREATE FK + INSERT
+    Note over O,M: orderTBL.memberID → memberTBL.memberID
+    SQL->>M: SELECT
+    SQL->>O: SELECT JOIN
+```
+
+---
+
+## 📁 파일 구성
+
+| 파일 | 설명 |
+|------|------|
+| `day1.sql` | `shopdb` 생성, `memberTBL`·`orderTBL` DDL/DML, SELECT·JOIN 실습 |
+
+---
+
+## 📐 다이어그램 요약 (Mermaid)
+
+| 다이어그램 | 유형 | 설명 |
+|-----------|------|------|
+| memberTBL ↔ orderTBL | `erDiagram` | 1:N ERD |
+| DB01 vs DB02 | `flowchart` | 1:N vs 1:1 비교 |
+| 1:N JOIN | `flowchart` | JOIN 조회 흐름 |
+| 실행 흐름 | `flowchart` | day1 학습 순서 |
+| DDL → DML | `sequenceDiagram` | 테이블·데이터·조회 단계 |
+
+### day1.sql 핵심 스크립트
+
+```sql
 DROP DATABASE IF EXISTS shopdb;
 CREATE DATABASE shopdb;
 USE shopdb;
 
--- 2. 회원 테이블 생성
 CREATE TABLE memberTBL (
     memberID VARCHAR(20) PRIMARY KEY,
     memberName VARCHAR(50) NOT NULL,
     memberAddress VARCHAR(100)
 );
 
--- 3. 주문 테이블 생성
 CREATE TABLE orderTBL (
     orderID INT PRIMARY KEY,
     memberID VARCHAR(20) NOT NULL,
@@ -180,128 +240,49 @@ CREATE TABLE orderTBL (
         REFERENCES memberTBL(memberID)
 );
 
--- 4. 회원 데이터 입력 DML
-INSERT INTO memberTBL
-(memberID, memberName, memberAddress)
-VALUES
+INSERT INTO memberTBL (memberID, memberName, memberAddress) VALUES
 ('user01', '김철수', '서울'),
 ('user02', '이영희', '부산'),
 ('user03', '박민수', '대전'),
 ('user04', '최지연', '광주');
 
--- 5. 주문 데이터 입력 DML
-INSERT INTO orderTBL
-(orderID, memberID, product, quantity)
-VALUES
+INSERT INTO orderTBL (orderID, memberID, product, quantity) VALUES
 (1001, 'user01', '노트북', 1),
 (1002, 'user02', '키보드', 1),
 (1003, 'user01', '마우스', 2),
 (1004, 'user03', '모니터', 1);
 
--- 6. 전체 회원 조회
-SELECT *
-FROM memberTBL;
-
--- 7. 전체 주문 조회
-SELECT *
-FROM orderTBL;
-
--- 8. 김철수 회원 조회
-SELECT *
-FROM memberTBL
-WHERE memberName = '김철수';
-
--- 9. 주문한 회원 이름과 상품 조회 JOIN
-SELECT
-    m.memberName AS 회원명,
-    o.product AS 상품명,
-    o.quantity AS 수량
+SELECT m.memberName AS 회원명, o.product AS 상품명, o.quantity AS 수량
 FROM memberTBL m
-JOIN orderTBL o
-ON m.memberID = o.memberID;
-
--- 10. 특정 상품을 주문한 회원 조회
-SELECT
-    m.memberName AS 회원명,
-    o.product AS 상품명
-FROM memberTBL m
-JOIN orderTBL o
-ON m.memberID = o.memberID
-WHERE o.product = '노트북';
-
-```
-<br>
-<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/9ed390f8-77e5-4184-9731-19789776757b" />
-
-<br><br>
-
-- delete/update 해제<br>
-  <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/4f8a19b3-a759-462f-ba12-64ad77b42ea7" />
-  <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/c8d14c77-ceb4-49e6-9920-6ad77c509ef5" />
-
-<br><br>
-- ERD <br>
-<img width="400" height="350" alt="image" src="https://github.com/user-attachments/assets/51c84a12-674b-4b80-935f-7e00a4433900" />
-<img width="400" height="350" alt="image" src="https://github.com/user-attachments/assets/c24a3eca-9cf3-4ddd-90dd-5946c8b2d24d" />
-<img width="400" height="350" alt="image" src="https://github.com/user-attachments/assets/aec4686b-24da-41a8-b11f-8d844ce05111" />
-<img width="400" height="350" alt="image" src="https://github.com/user-attachments/assets/0717a36f-25e4-4c88-83b7-93207d5c95fb" />
-<img width="400" height="350" alt="image" src="https://github.com/user-attachments/assets/e9513be7-f285-4a92-9077-8ece5636efcc" />
-<img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/ca450cee-562c-408b-af2a-8ba6bbe408ab" />
-<img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/e25868e9-c661-47aa-9962-f17695cc39fb" />
-
-<br><br>
-- font
-<img width="807" height="603" alt="image" src="https://github.com/user-attachments/assets/2afc2bf6-d920-44e6-a650-8976b0bf7f44" />
-
-<br><br>
-<img width="956" height="454" alt="image" src="https://github.com/user-attachments/assets/b367cc96-39ce-46f5-84c9-a847cfd8ccd9" />
-<img width="1075" height="613" alt="image" src="https://github.com/user-attachments/assets/fe3bfe0f-421e-4cac-8866-fd34f4570160" />
-<img width="974" height="552" alt="image" src="https://github.com/user-attachments/assets/05afb239-0d4c-4261-8c13-9eaa22b1367f" />
-<img width="1074" height="613" alt="image" src="https://github.com/user-attachments/assets/7b470713-cc29-427a-9968-27f55189f60b" />
-
-<img width="975" height="553" alt="image" src="https://github.com/user-attachments/assets/84a06e24-4be5-448c-bf3b-16d5a213f158" />
-<img width="980" height="556" alt="image" src="https://github.com/user-attachments/assets/e1c72cb2-2729-44ba-968b-55e40468bc7d" />
-<img width="1074" height="611" alt="image" src="https://github.com/user-attachments/assets/cc8f80e7-770a-49ac-bd4f-2e50b0714932" />
-<img width="1072" height="611" alt="image" src="https://github.com/user-attachments/assets/d1f406a0-5dda-4746-9e03-aa1b01393557" />
-<img width="1075" height="612" alt="image" src="https://github.com/user-attachments/assets/f67247cd-a2d9-4081-8dad-b8fc056b71f1" />
-<img width="1076" height="613" alt="image" src="https://github.com/user-attachments/assets/e1bd0e80-26ec-43b4-a603-e1bfe43410bf" />
-<img width="1073" height="609" alt="image" src="https://github.com/user-attachments/assets/d4483935-fc3c-4089-b9c7-6c6cfa2bcd3a" />
-<img width="1075" height="609" alt="image" src="https://github.com/user-attachments/assets/2f0ead46-b3bc-461f-ad5a-64eb3dba21e4" />
-
-<br><br>
-- 샘플데이터 다운로드/설치 : https://dev.mysql.com/doc/index-other.html <br>
-  <img width="1550" height="470" alt="image" src="https://github.com/user-attachments/assets/5127cf21-3452-4ad5-8ebc-cf72db8544ce" />
-  <img width="609" height="229" alt="image" src="https://github.com/user-attachments/assets/197fa586-15b9-400e-be1f-88b05b6cb31e" />
-
-
-
-<br><br>
-- db지정하지 않는 경우 기본 db로 인식하도록 설정 <br>
-<img width="622" height="627" alt="image" src="https://github.com/user-attachments/assets/56dd6ac1-733b-49b6-9441-8f521ca26034" />
-
-<br><br>
-C:\Program Files\MySQL\MySQL Server 8.4\bin
-<img width="882" height="662" alt="image" src="https://github.com/user-attachments/assets/773171d6-2c23-4b34-9561-619a2fe770dc" />
-<img width="2054" height="1731" alt="image" src="https://github.com/user-attachments/assets/23ab206c-f958-4de7-92c8-d65e2b4ea8e7" />
-<img width="962" height="1123" alt="image" src="https://github.com/user-attachments/assets/f22097ee-3bee-41c1-bc7f-633a60edc6a7" />
-<img width="1234" height="1239" alt="image" src="https://github.com/user-attachments/assets/ea9cc914-d791-4260-b213-fff2588fed80" />
-<img width="1068" height="1071" alt="image" src="https://github.com/user-attachments/assets/e13d42e1-45ef-4d26-93a1-e8e6633d0bd9" />
-
-<br><br>
-
-```
-
-mysql -h ip -P port -u 사용자id -p 패스워드 
--h 지정하지 않으면 localhost
--P 지정하지 않으면 3306
-
+JOIN orderTBL o ON m.memberID = o.memberID;
 ```
 
 <br><br>
-- 실제 데이터가 저장되는 폴더 위치
-  <img width="1852" height="1421" alt="image" src="https://github.com/user-attachments/assets/97bf49ac-68cc-4169-80dc-f33f6ef1466f" />
 
+### MySQL Workbench · 환경 설정 (공통)
 
+<img width="1536" height="1024" alt="MySQL Workbench 설치" src="https://github.com/user-attachments/assets/3f0a9100-09a4-4bde-bd5a-2e5638c60b45" />
+<img width="1536" height="1024" alt="MySQL Workbench 연결" src="https://github.com/user-attachments/assets/2c449aa7-4482-4b90-89c9-36f97e7cb737" />
 
+- **샘플 DB 다운로드:** [MySQL Documentation - Other Docs](https://dev.mysql.com/doc/index-other.html)  
+  <img width="1550" height="470" alt="MySQL 샘플 DB 문서" src="https://github.com/user-attachments/assets/5127cf21-3452-4ad5-8ebc-cf72db8544ce" />
 
+- **CLI 접속 예시**
+  ```text
+  mysql -h 호스트 -P 포트 -u 사용자id -p
+  # -h 생략 시 localhost, -P 생략 시 3306
+  ```
 
+- **ERD (memberTBL · orderTBL)**  
+  <img width="400" height="350" alt="ERD member order" src="https://github.com/user-attachments/assets/51c84a12-674b-4b80-935f-7e00a4433900" />
+  <img width="400" height="350" alt="ERD 관계" src="https://github.com/user-attachments/assets/c24a3eca-9cf3-4ddd-90dd-5946c8b2d24d" />
+
+- **Safe Update 해제 (필요 시)**  
+  <img width="400" height="300" alt="Safe Update 설정" src="https://github.com/user-attachments/assets/4f8a19b3-a759-462f-ba12-64ad77b42ea7" />
+
+---
+
+## 🔗 참고
+
+- DB02에서는 **1:1** (`userTBL` ↔ `buyTBL`), DB03에서는 **DQL** (`SELECT`, 서브쿼리, `GROUP BY`) 을 다룹니다.
+- [db02/README.md](../db02/README.md) · [db03/README.md](../db03/README.md)

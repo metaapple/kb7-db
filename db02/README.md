@@ -329,3 +329,4 @@ ALTER TABLE `productTBL` ADD CONSTRAINT `PK_PRODUCTTBL` PRIMARY KEY (
 
 - MySQL 설치·Workbench·CLI 접속 등 공통 환경 설정은 [db01/README.md](../db01/README.md) 를 참고하세요.
 - DB01에서는 **1:N** (`memberTBL` ↔ `orderTBL`), DB02에서는 **1:1** (`userTBL` ↔ `buyTBL`) 관계를 다룹니다.
+- DB03에서는 **DQL** (`SELECT`, 서브쿼리, `GROUP BY`) — [db03/README.md](../db03/README.md)

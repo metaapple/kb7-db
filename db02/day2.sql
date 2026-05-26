@@ -33,6 +33,7 @@ CREATE TABLE `memberTBL` (
 	`memberAddress`	varchar(500)	NULL
 );
 
+
 CREATE TABLE `productTBL` (
 	`productName`	varchar(500)	NOT NULL,
 	`cost`	int	NULL,
