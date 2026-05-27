@@ -433,15 +433,24 @@ flowchart TD
 
 ---
 
-## 🔗 참고
+<br>
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/02822e60-fa1b-4f80-8646-c698fedd01e9" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/107403bb-6979-4816-a92a-47e49191aa3d" />
 
-| 주차 | 주제 | 가이드 |
-|------|------|--------|
-| db01 | DDL · DML · 1:N | [db01/README.md](../db01/README.md) |
-| db02 | ALTER · PK/FK · 1:1 | [db02/README.md](../db02/README.md) |
-| db03 | SELECT · 집계 | [db03/README.md](../db03/README.md) |
-| **db04** | **내장 함수 · JOIN** | 현재 문서 |
-| JDBC | Java DB 연동 | [README.md#3-jdbc-흐름](../README.md#3-jdbc-흐름) |
+<br>
+- datatype <br>
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/7b345379-c0a8-480b-9d10-ac230c334019" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/883ece53-d921-4199-8082-d98e1c431ba0" />
 
-- 루트 수업 개요: [README.md](../README.md)
+- 함수 <br>
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/136a7c6f-4660-47cc-bf83-dfb39ef2ef4f" />
+
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/5eae0751-422f-42d9-8241-4aecccf9dbd5" />
+
+
+- join <Br>
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/c0e38893-c069-49f2-90fa-68290035ae66" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/8e6cc83d-2608-4a3d-8537-56d6b2b9f95a" />
+
+
 
