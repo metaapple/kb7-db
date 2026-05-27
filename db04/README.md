@@ -433,3 +433,15 @@ flowchart TD
 
 ---
 
+## 🔗 참고
+
+| 주차 | 주제 | 가이드 |
+|------|------|--------|
+| db01 | DDL · DML · 1:N | [db01/README.md](../db01/README.md) |
+| db02 | ALTER · PK/FK · 1:1 | [db02/README.md](../db02/README.md) |
+| db03 | SELECT · 집계 | [db03/README.md](../db03/README.md) |
+| **db04** | **내장 함수 · JOIN** | 현재 문서 |
+| JDBC | Java DB 연동 | [README.md#3-jdbc-흐름](../README.md#3-jdbc-흐름) |
+
+- 루트 수업 개요: [README.md](../README.md)
+

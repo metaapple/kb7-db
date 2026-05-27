@@ -11,8 +11,10 @@ flowchart LR
     A[DB 개요] --> B[DDL]
     B --> C[DML]
     C --> D["DCL / TCL"]
-    D --> E[JDBC]
-    E --> F[MongoDB 개요]
+    D --> E["SELECT db03"]
+    E --> F["함수 JOIN db04"]
+    F --> G[JDBC]
+    G --> H[MongoDB 개요]
 ```
 
 | 단계 | 폴더·자료 | 핵심 |
