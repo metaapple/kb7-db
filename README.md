@@ -21,6 +21,7 @@ flowchart LR
 | DDL · DML | [db01](db01/) | `CREATE` / `INSERT`, 1:N JOIN |
 | DDL 심화 | [db02](db02/) | `ALTER`, PK/FK, CSV Import |
 | SELECT · 집계 | [db03](db03/) | `SELECT`, 서브쿼리, `GROUP BY` |
+| 내장 함수 · JOIN | [db04](db04/) | `IF`/`CASE`, 내장 함수, INNER/LEFT/SELF JOIN |
 | JDBC | (Java) | Driver → Connection → SQL 실행 → ResultSet |
 | NoSQL | (예정) | 문서 DB, 컬렉션 개념 |
 
@@ -95,7 +96,7 @@ flowchart TB
 | 분류 | 역할 | 대표 명령 | 수업 매핑 |
 |------|------|-----------|-----------|
 | **DDL** | 구조 정의·변경 | `CREATE`, `ALTER`, `DROP`, `TRUNCATE` | db01 `CREATE TABLE`, db02 `ALTER` PK/FK |
-| **DML** | 데이터 조작·조회 | `INSERT`, `UPDATE`, `DELETE`, `SELECT` | db01 `INSERT`, db03 조회·집계 |
+| **DML** | 데이터 조작·조회 | `INSERT`, `UPDATE`, `DELETE`, `SELECT` | db01 `INSERT`, db03 조회·집계, db04 함수·JOIN |
 | **DCL** | 권한 제어 | `GRANT`, `REVOKE` | 사용자·권한 개념 |
 | **TCL** | 트랜잭션 제어 | `COMMIT`, `ROLLBACK` | 여러 DML을 하나의 작업 단위로 묶기 |
 
@@ -196,7 +197,8 @@ jdbc:mysql://localhost:3306/shopdb?serverTimezone=Asia/Seoul&characterEncoding=U
 flowchart LR
     D1["db01 DDL DML 1:N"] --> D2["db02 ALTER 1:1 Import"]
     D2 --> D3["db03 SELECT 집계"]
-    D3 --> D4[JDBC 프로젝트]
+    D3 --> D4["db04 함수 JOIN"]
+    D4 --> D5[JDBC 프로젝트]
 ```
 
 | 폴더 | 파일 | 내용 |
@@ -204,8 +206,9 @@ flowchart LR
 | [db01/](db01/) | `day1.sql` | `shopdb`, `memberTBL`·`orderTBL`, 1:N FK, JOIN |
 | [db02/](db02/) | `day2.sql` | `ALTER` PK/FK, 1:1, CSV/JSON Import |
 | [db03/](db03/) | `day3.sql` | `WHERE`, 서브쿼리, `GROUP BY`, `HAVING` |
+| [db04/](db04/) | `day4.sql` | 내장 함수, INNER/LEFT JOIN, SELF JOIN |
 
-상세 가이드: [db01/README.md](db01/README.md) · [db02/README.md](db02/README.md) · [db03/README.md](db03/README.md)
+상세 가이드: [db01/README.md](db01/README.md) · [db02/README.md](db02/README.md) · [db03/README.md](db03/README.md) · [db04/README.md](db04/README.md)
 
 ---
 
