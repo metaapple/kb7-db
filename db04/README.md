@@ -432,6 +432,7 @@ flowchart TD
 | 실행 흐름 | `flowchart` | day4 학습 순서 |
 
 ---
+<hr>
 
 <br>
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/02822e60-fa1b-4f80-8646-c698fedd01e9" />
