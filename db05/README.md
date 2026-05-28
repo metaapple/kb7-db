@@ -749,12 +749,12 @@ ON P.COMPANY = C.ID;
 
 <br>
 - 뷰 <br>
-<img width="2469" height="1394" alt="image" src="https://github.com/user-attachments/assets/f050049d-6493-4b46-89e0-cd2d79bd87d4" />
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/12f143d2-6bec-4917-b793-9b71c729da43" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/936c9f9c-bb9c-40b9-8869-a812ef332f90" />
 
 <br>
+
 - 정규화과정 <br>
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/936c9f9c-bb9c-40b9-8869-a812ef332f90" />
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/a971c28d-7d2e-4c82-a653-cc1e1ab41cf6" />
 <br>
 
