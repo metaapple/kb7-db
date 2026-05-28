@@ -13,7 +13,8 @@ flowchart LR
     C --> D["DCL / TCL"]
     D --> E["SELECT db03"]
     E --> F["함수 JOIN db04"]
-    F --> G[JDBC]
+    F --> F5["JOIN DDL 정규화 db05"]
+    F5 --> G[JDBC]
     G --> H[MongoDB 개요]
 ```
 
@@ -24,6 +25,7 @@ flowchart LR
 | DDL 심화 | [db02](db02/) | `ALTER`, PK/FK, CSV Import |
 | SELECT · 집계 | [db03](db03/) | `SELECT`, 서브쿼리, `GROUP BY` |
 | 내장 함수 · JOIN | [db04](db04/) | `IF`/`CASE`, 내장 함수, INNER/LEFT/SELF JOIN |
+| JOIN 복습 · DDL · 정규화 | [db05](db05/) | FK·UNIQUE/CHECK/DEFAULT, `ALTER`, 복합 PK, 1NF~3NF |
 | JDBC | (Java) | Driver → Connection → SQL 실행 → ResultSet |
 | NoSQL | (예정) | 문서 DB, 컬렉션 개념 |
 
@@ -97,8 +99,8 @@ flowchart TB
 
 | 분류 | 역할 | 대표 명령 | 수업 매핑 |
 |------|------|-----------|-----------|
-| **DDL** | 구조 정의·변경 | `CREATE`, `ALTER`, `DROP`, `TRUNCATE` | db01 `CREATE TABLE`, db02 `ALTER` PK/FK |
-| **DML** | 데이터 조작·조회 | `INSERT`, `UPDATE`, `DELETE`, `SELECT` | db01 `INSERT`, db03 조회·집계, db04 함수·JOIN |
+| **DDL** | 구조 정의·변경 | `CREATE`, `ALTER`, `DROP`, `TRUNCATE` | db01 `CREATE TABLE`, db02 `ALTER` PK/FK, db05 제약·복합 PK·`RENAME`/`DROP` |
+| **DML** | 데이터 조작·조회 | `INSERT`, `UPDATE`, `DELETE`, `SELECT` | db01 `INSERT`, db03 조회·집계, db04 함수·JOIN, db05 FK 무결성 실습 |
 | **DCL** | 권한 제어 | `GRANT`, `REVOKE` | 사용자·권한 개념 |
 | **TCL** | 트랜잭션 제어 | `COMMIT`, `ROLLBACK` | 여러 DML을 하나의 작업 단위로 묶기 |
 
@@ -200,7 +202,8 @@ flowchart LR
     D1["db01 DDL DML 1:N"] --> D2["db02 ALTER 1:1 Import"]
     D2 --> D3["db03 SELECT 집계"]
     D3 --> D4["db04 함수 JOIN"]
-    D4 --> D5[JDBC 프로젝트]
+    D4 --> D5["db05 JOIN DDL 정규화"]
+    D5 --> D6[JDBC 프로젝트]
 ```
 
 | 폴더 | 파일 | 내용 |
@@ -209,8 +212,9 @@ flowchart LR
 | [db02/](db02/) | `day2.sql` | `ALTER` PK/FK, 1:1, CSV/JSON Import |
 | [db03/](db03/) | `day3.sql` | `WHERE`, 서브쿼리, `GROUP BY`, `HAVING` |
 | [db04/](db04/) | `day4.sql` | 내장 함수, INNER/LEFT JOIN, SELF JOIN |
+| [db05/](db05/) | `day5.sql`, `day5_수업전배포.sql` | JOIN 복습(`sqldb`), FK·UNIQUE/CHECK/DEFAULT·`ALTER`·복합 PK(`tableDB`), (배포본) `RENAME`/`TRUNCATE`/`DROP`, 1NF~3NF |
 
-상세 가이드: [db01/README.md](db01/README.md) · [db02/README.md](db02/README.md) · [db03/README.md](db03/README.md) · [db04/README.md](db04/README.md)
+상세 가이드: [db01/README.md](db01/README.md) · [db02/README.md](db02/README.md) · [db03/README.md](db03/README.md) · [db04/README.md](db04/README.md) · [db05/README.md](db05/README.md)
 
 ---
 
