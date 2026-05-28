@@ -96,7 +96,7 @@ erDiagram
         varchar grade FK
     }
     event_participation_3nf {
-        varchar customer_id PK_FK
+        varchar customer_id PK
         varchar event_no PK
         char win_yn
     }
